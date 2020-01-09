@@ -1,27 +1,53 @@
 import React, { Component} from "react";
-// import "./App.css";
-// import earningsChart.js
-// import summary.js
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
+import Header from "./Header.js"
+import EarningsChart from "./EarningsChart.js"
 
 class App extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      ticker: 'HP',
-      earnings: []
+      ticker: 'TUVW',
+      name: '',
+      earnings: [],
+      updated: false
     };
   }
 
   componentDidMount() {
-    //make route call to server
+    fetch(`/earnings/${this.state.ticker}`)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            ticker: result.ticker,
+            name: result.name,
+            earnings: result.earnings,
+            updated: true
+          });
+          console.log(this.state.earnings)
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
   }
 
-  render(){
-    return(
-      <div className="App">
-        <h1> {this.state.ticker} Earnings </h1>
-      </div>
-    );
+  render() {
+    if (this.state.updated) {
+      return (
+        <div>
+        <Header ticker={this.state.ticker} />
+        <EarningsChart earnings={this.state.earnings} />
+        </div>
+      );  
+    } else {
+      return(
+        <div>Loading...</div>
+      )
+    }
+
   }
 }
 

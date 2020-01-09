@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const seed = require('./seed.js');
+// const seed = require('./seed.js');
 
 mongoose.connect('mongodb://localhost/earnings', {useNewUrlParser: true, useUnifiedTopology: true});
 

@@ -2,7 +2,7 @@
   "name": "earnings",
   "version": "1.0.0",
   "description": "Earnings chart",
-  "main": "index.js",
+  "main": "./server/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack -d --watch",
@@ -26,8 +26,10 @@
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-react": "^7.7.0",
     "babel-loader": "^8.0.6",
+    "cors": "^2.8.5",
     "css-loader": "^3.2.0",
     "faker": "^4.1.0",
+    "jquery": "^3.4.1",
     "nodemon": "^1.19.4",
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
@@ -35,9 +37,11 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "mongoose": "^5.7.12",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "react-router": "^5.1.2"
   }
 }

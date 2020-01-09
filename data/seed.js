@@ -22,7 +22,6 @@ module.exports = {
       console.log('Earnings seeded to database!');
       cb();
     });
-    // console.log('TEST',db.Earnings)
   }
 };
 
