@@ -18,7 +18,7 @@ class App extends Component{
   }
 
   componentDidMount() {
-    fetch(`/earnings/${this.state.ticker}`)
+    fetch(`http://ec2-3-133-140-78.us-east-2.compute.amazonaws.com:3000/earnings/${this.state.ticker}`)
       .then(res => res.json())
       .then(
         (result) => {
