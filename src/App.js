@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Header from "./Header.js"
 import EarningsChart from "./EarningsChart.js"
+import Legends from "./Legends.js"
+
 
 class App extends Component{
   constructor(props) {
@@ -26,7 +28,6 @@ class App extends Component{
             earnings: result.earnings,
             updated: true
           });
-          console.log(this.state.earnings)
         },
         (error) => {
           console.log(error)
@@ -38,8 +39,9 @@ class App extends Component{
     if (this.state.updated) {
       return (
         <div>
-        <Header ticker={this.state.ticker} />
-        <EarningsChart earnings={this.state.earnings} />
+          <Header ticker={this.state.ticker} />
+          <EarningsChart earnings={this.state.earnings} />
+          <Legends/>
         </div>
       );  
     } else {

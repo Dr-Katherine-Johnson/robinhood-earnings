@@ -8,7 +8,8 @@
     "build": "webpack -d --watch",
     "start": "nodemon server/app.js",
     "webpack-server": "webpack-dev-server",
-    "seed": "node data/seed.js"
+    "seed": "node data/seed.js",
+    "start-docker": "concurrently \"node data/seed.js\" \"nodemon server/app.js\""
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "concurrently": "^5.0.2",
     "express": "^4.17.1",
     "mongoose": "^5.7.12",
     "react": "^16.12.0",

@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import EarningsYLabel from './EarningsYLabel.js';
 import EarningsXLabel from './EarningsXLabel.js';
 import EarningsActual from './EarningsActual.js';
-// import EarningsEst from './EarningsEst.js';
+import EarningsEst from './EarningsEst.js';
 
 class EarningsChart extends Component{
   constructor(props) {
@@ -52,8 +52,7 @@ class EarningsChart extends Component{
   }
 
   findY(rev) {
-      // console.log('this.state.max', this.state.max);
-    return (rev / this.state.max * this.state.styleDimensions.maxY);
+    return ((1 - rev / this.state.max) * this.state.styleDimensions.maxY);
   }
 
   render() {
@@ -64,6 +63,13 @@ class EarningsChart extends Component{
             <div class="_17yYVtqolFPBnoaIZOPe1A">
               <EarningsYLabel max={this.state.max}/>
               <svg width="553" height="120">
+                <g>
+                  { 
+                    this.state.estRevenue.map((curr, i) => (
+                      <EarningsEst shiftX={this.findX(i)} shiftY={this.findY(curr)}/>                
+                    ))
+                  }
+                </g>
                 <g>
                   { 
                     this.state.revenue.map((curr, i) => (

@@ -15,7 +15,7 @@ module.exports = {
     const now = new Date();
     // now = new Date(now.getFullYear(), now.getMonth());
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 7; i++) {
       result.push(this.generateDate(this.generateRevenue(result[i - 1]), i, result[i - 1]));
     }
     return result;

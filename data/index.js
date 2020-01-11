@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 // const seed = require('./seed.js');
 
-mongoose.connect('mongodb://localhost/earnings', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost:27017/earnings', {useNewUrlParser: true, useUnifiedTopology: true});
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
