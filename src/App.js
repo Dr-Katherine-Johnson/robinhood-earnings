@@ -1,16 +1,15 @@
-import React, { Component} from "react";
-import ReactDOM from 'react-dom';
-import $ from 'jquery';
+import React, { Component } from "react";
+import queryString from 'query-string';
 import Header from "./Header.js"
 import EarningsChart from "./EarningsChart.js"
 import Legends from "./Legends.js"
 
 
-class App extends Component{
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ticker: 'TUVW',
+      ticker: '',
       name: '',
       earnings: [],
       updated: false
@@ -18,7 +17,9 @@ class App extends Component{
   }
 
   componentDidMount() {
-    fetch(`http://ec2-3-133-140-78.us-east-2.compute.amazonaws.com:3000/earnings/${this.state.ticker}`)
+    const value = queryString.parse(window.location.search)
+    const ticker = value.ticker
+    fetch(`/earnings/${ticker}`)
       .then(res => res.json())
       .then(
         (result) => {
@@ -41,11 +42,11 @@ class App extends Component{
         <div>
           <Header ticker={this.state.ticker} />
           <EarningsChart earnings={this.state.earnings} />
-          <Legends/>
+          <Legends />
         </div>
-      );  
+      );
     } else {
-      return(
+      return (
         <div>Loading...</div>
       )
     }
