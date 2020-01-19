@@ -34,4 +34,19 @@ app.post('/earnings/add', (req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 })
 
+// UPDATE
+app.put('/earnings/update/:ticker', (req, res) => {
+  db.Earnings.findOne({ ticker: req.params.ticker })
+    .then((earning) => {
+      earning.ticker = req.body.ticker;
+      earning.name = req.body.name;
+      earning.earnings = req.body.earnings;
+
+      earning.save()
+        .then(() => res.json('Earnings Updated!'))
+        .catch(err => res.status(400).json(`Error: ${err}`));
+    })
+    .catch(err => res.status(400).json(`Error: ${err}`));
+})
+
 app.listen(port, () => console.log(`Earnings chart listening on port ${port}!`))
