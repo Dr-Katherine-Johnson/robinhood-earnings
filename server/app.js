@@ -30,7 +30,7 @@ app.post('/earnings/add', (req, res) => {
   const newEarning = new db.Earnings(req.body)
 
   newEarning.save()
-    .then(() => res.json('Earnings Added!'))
+    .then(() => res.json('Earning Added'))
     .catch(err => res.status(400).json(`Error: ${err}`));
 })
 
@@ -43,10 +43,17 @@ app.put('/earnings/update/:ticker', (req, res) => {
       earning.earnings = req.body.earnings;
 
       earning.save()
-        .then(() => res.json('Earnings Updated!'))
-        .catch(err => res.status(400).json(`Error: ${err}`));
+        .then(() => res.json('Earning Updated'))
+        .catch(err => res.status(404).json(`Error: ${err}`));
     })
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .catch(err => res.status(404).json(`Error: ${err}`));
+})
+
+// DELETE
+app.delete('/earnings/:ticker', (req, res) => {
+  db.Earnings.findOneAndDelete({ ticker: req.params.ticker })
+    .then(() => res.json('Earning Deleted'))
+    .catch(err => res.status(404).json(`Error: ${err}`));
 })
 
 app.listen(port, () => console.log(`Earnings chart listening on port ${port}!`))
