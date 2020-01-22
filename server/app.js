@@ -26,7 +26,7 @@ app.get("/earnings/:ticker", function (req, res) {
 })
 
 // POST
-app.post('/earnings/add', (req, res) => {
+app.post('/earnings', (req, res) => {
   const newEarning = new db.Earnings(req.body)
 
   newEarning.save()
@@ -35,7 +35,7 @@ app.post('/earnings/add', (req, res) => {
 })
 
 // UPDATE
-app.put('/earnings/update/:ticker', (req, res) => {
+app.put('/earnings/:ticker', (req, res) => {
   db.Earnings.findOne({ ticker: req.params.ticker })
     .then((earning) => {
       earning.ticker = req.body.ticker;
