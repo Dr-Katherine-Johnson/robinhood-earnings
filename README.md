@@ -31,8 +31,7 @@ npm install
 ```
 ## API
 
-| GET               | POST               | PUT                      | DELETE            |
-| ----------------- | ------------------ | ------------------------ | ----------------- |
-| READ              | CREATE             | UPDATE                   | DELETE            |
-| /earnings/:ticker | /earnings/add      | /earnings/update/:ticker | /earnings/:ticker |
-| List earning      | Create new earning | Update earning           | Remove earning    |
+| GET               | POST               | PUT               | DELETE            |
+| ----------------- | ------------------ | ------------------| ----------------- |
+| /earnings/:ticker | /earnings          | /earnings/:ticker | /earnings/:ticker |
+| List earning      | Create new earning | Update earning    | Remove earning    |
