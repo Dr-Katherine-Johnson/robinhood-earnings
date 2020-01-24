@@ -15,7 +15,7 @@ module.exports = {
     const now = new Date();
     // now = new Date(now.getFullYear(), now.getMonth());
 
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 7 * 10; i++) {
       result.push(this.generateDate(this.generateRevenue(result[i - 1]), i, result[i - 1]));
     }
     return result;
@@ -53,7 +53,7 @@ module.exports = {
     } else {
       //Decrement by 3 month right away
       dateTime = new Date(prev.dateTime);
-      dateTime.setMonth(dateTime.getMonth() - 3) ;
+      dateTime.setMonth(dateTime.getMonth() - 3);
     }
     return Object.assign({}, priceObject, { dateTime: dateTime.toISOString() });
   },
