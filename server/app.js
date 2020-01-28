@@ -1,5 +1,4 @@
 const express = require('express')
-const path = require('path');
 const app = express()
 const port = 3007;
 const db = require('../data/index.js');
@@ -19,7 +18,7 @@ app.get('/earnings/:ticker', (req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 })
 
-// POST
+
 app.post('/earnings', (req, res) => {
   const newEarning = new db.Earnings(req.body)
 
@@ -28,7 +27,7 @@ app.post('/earnings', (req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 })
 
-// UPDATE
+
 app.put('/earnings/:ticker', (req, res) => {
   db.Earnings.findOne({ ticker: req.params.ticker })
     .then((earning) => {
@@ -43,7 +42,7 @@ app.put('/earnings/:ticker', (req, res) => {
     .catch(err => res.status(404).json(`Error: ${err}`));
 })
 
-// DELETE
+
 app.delete('/earnings/:ticker', (req, res) => {
   db.Earnings.findOneAndDelete({ ticker: req.params.ticker })
     .then(() => res.status(200).json('Earning Deleted'))
