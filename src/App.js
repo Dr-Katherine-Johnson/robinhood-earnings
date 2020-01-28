@@ -29,11 +29,9 @@ class App extends Component {
             earnings: result.earnings,
             updated: true
           });
-        },
-        (error) => {
-          console.log(error)
         }
       )
+      .catch(err => console.log(`Error: ${err}`))
   }
 
   render() {
