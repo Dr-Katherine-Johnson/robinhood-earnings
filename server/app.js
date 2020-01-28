@@ -13,16 +13,10 @@ app.use(bodyParser.json());
 app.use(express.static('client/dist'));
 app.use(express.static('client/public'));
 
-app.get("/earnings/:ticker", function (req, res) {
-  db.Earnings.findOne({ ticker: req.params.ticker }, (err, result) => {
-
-    if (err) {
-      console.log(err);
-      res.send(err);
-    }
-    console.log(result)
-    res.send(result);
-  });
+app.get('/earnings/:ticker', (req, res) => {
+  db.Earnings.findOne({ ticker: req.params.ticker })
+    .then((result) => res.status(200).send(result))
+    .catch(err => res.status(400).json(`Error: ${err}`));
 })
 
 // POST
@@ -30,7 +24,7 @@ app.post('/earnings', (req, res) => {
   const newEarning = new db.Earnings(req.body)
 
   newEarning.save()
-    .then(() => res.json('Earning Added'))
+    .then(() => res.status(201).json('Earning Added'))
     .catch(err => res.status(400).json(`Error: ${err}`));
 })
 
@@ -43,7 +37,7 @@ app.put('/earnings/:ticker', (req, res) => {
       earning.earnings = req.body.earnings;
 
       earning.save()
-        .then(() => res.json('Earning Updated'))
+        .then(() => res.status(200).json('Earning Updated'))
         .catch(err => res.status(404).json(`Error: ${err}`));
     })
     .catch(err => res.status(404).json(`Error: ${err}`));
@@ -52,7 +46,7 @@ app.put('/earnings/:ticker', (req, res) => {
 // DELETE
 app.delete('/earnings/:ticker', (req, res) => {
   db.Earnings.findOneAndDelete({ ticker: req.params.ticker })
-    .then(() => res.json('Earning Deleted'))
+    .then(() => res.status(200).json('Earning Deleted'))
     .catch(err => res.status(404).json(`Error: ${err}`));
 })
 
