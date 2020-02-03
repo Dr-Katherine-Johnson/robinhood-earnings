@@ -1,7 +1,8 @@
 const express = require('express')
 const app = express()
 const port = 3007;
-const db = require('../data/index.js');
+//const db = require('../data/index.js');
+const influx = require('../data/influxdb/index.js');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
