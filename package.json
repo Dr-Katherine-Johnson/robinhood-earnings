@@ -41,6 +41,7 @@
     "body-parser": "^1.19.0",
     "concurrently": "^5.0.2",
     "express": "^4.17.1",
+    "influx": "^5.5.1",
     "mongoose": "^5.7.12",
     "query-string": "^6.10.0",
     "react": "^16.12.0",
