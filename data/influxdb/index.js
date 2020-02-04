@@ -7,16 +7,14 @@ const influx = new Influx.InfluxDB({
     {
       measurement: 'earning',
       fields: {
-        // need to figure out fields
+        earnings: Influx.FieldType.STRING,
       },
-      tags: [
-        // need to figure out tags
-      ]
+      tags: ['ticker', 'name']
     }
   ]
 });
 
-influx.dropDatabase('earnings')
+// influx.dropDatabase('earnings')
 
 influx.getDatabaseNames()
   .then(names => {
