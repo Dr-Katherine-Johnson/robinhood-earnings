@@ -10,7 +10,7 @@ const start = () => {
         ticker: ticker,
         name: earnings.generateName(),
       },
-      fields: { earnings: earnings.generateEarningsList() },
+      fields: { earnings: JSON.stringify(earnings.generateEarningsList()) },
     };
   });
   return tickerList;
