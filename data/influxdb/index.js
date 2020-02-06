@@ -5,16 +5,16 @@ const influx = new Influx.InfluxDB({
   database: 'earnings',
   schema: [
     {
-      measurement: 'earning',
+      measurement: 'ticker',
       fields: {
         earnings: Influx.FieldType.STRING,
       },
-      tags: ['ticker', 'name']
+      tags: ['name']
     }
   ]
 });
 
-// influx.dropDatabase('earnings')
+//influx.dropDatabase('earnings')
 
 influx.getDatabaseNames()
   .then(names => {
