@@ -1,6 +1,8 @@
-const { Client } = require('pg')
+const pgp = require('pg-promise')({
+  capSQL: true // capitalize all generated SQL
+});
 
-const client = new Client({
+const db = pgp({
   user: 'root',
   password: '',
   host: 'localhost',
@@ -8,29 +10,4 @@ const client = new Client({
   port: 5432,
 })
 
-// currently creating DB in shell
-// need to create earnings DB if it doesn't exist
-
-client.connect()
-  .then(() => { console.log('Connected to PS-DB Successfully') })
-  .catch(err => console.log(`Error: ${err}`))
-
-
-client.query(
-  'DROP TABLE IF EXISTS earning'
-)
-  .then(() => {
-    client.query(
-      `CREATE TABLE IF NOT EXISTS
-      earning(
-        id SERIAL PRIMARY KEY,
-        ticker  VARCHAR(20) NOT NULL,
-        name VARCHAR(30) NOT NULL
-      )`
-    )
-  })
-  .catch((err) => `Error: ${err}`)
-
-
-
-module.exports = client;
+module.exports = { db, pgp };
