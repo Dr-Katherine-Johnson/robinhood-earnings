@@ -6,9 +6,9 @@ DROP TABLE IF EXISTS tickers;
 
 CREATE TABLE tickers (
   id SERIAL PRIMARY KEY,
-  ticker  VARCHAR(20) UNIQUE NOT NULL,
-  name VARCHAR(30) NOT NULL,
-  earnings json
+  ticker  VARCHAR(50) UNIQUE NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  earnings TEXT []
 );
 
 
