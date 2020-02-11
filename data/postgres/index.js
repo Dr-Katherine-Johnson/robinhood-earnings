@@ -8,20 +8,29 @@ const client = new Client({
   port: 5432,
 })
 
+// currently creating DB in shell
+// need to create earnings DB if it doesn't exist
+
 client.connect()
   .then(() => { console.log('Connected to PS-DB Successfully') })
   .catch(err => console.log(`Error: ${err}`))
 
+
 client.query(
-  `CREATE TABLE IF NOT EXISTS
-      earning(
-        id INT,
-        ticker  VARCHAR(20) NOT NULL,
-        name VARCHAR(30) NOT NULL,
-        earnings json
-      )`
+  'DROP TABLE IF EXISTS earning'
 )
-  .then(() => client.end())
-  .catch(err => console.log(`Error: ${err}`))
+  .then(() => {
+    client.query(
+      `CREATE TABLE IF NOT EXISTS
+      earning(
+        id SERIAL PRIMARY KEY,
+        ticker  VARCHAR(20) NOT NULL,
+        name VARCHAR(30) NOT NULL
+      )`
+    )
+  })
+  .catch((err) => `Error: ${err}`)
+
+
 
 module.exports = client;
