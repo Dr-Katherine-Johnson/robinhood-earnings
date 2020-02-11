@@ -45,7 +45,7 @@
     "express": "^4.17.1",
     "influx": "^5.5.1",
     "mongoose": "^5.7.12",
-    "pg": "^7.18.1",
+    "pg-promise": "^10.4.3",
     "query-string": "^6.10.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
