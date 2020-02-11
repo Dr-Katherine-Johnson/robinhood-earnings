@@ -1,6 +1,8 @@
-const client = require('./postgres/index.js');
+const { db, pgp } = require('./postgres/index.js');
 const earnings = require('./earnings.js');
 const tickers = require('./tickers.js');
+
+const cs = new pgp.helpers.ColumnSet(['ticker', 'name', 'earnings'], { table: 'tickers' });
 
 const start = () => {
   let tickerList = tickers.createTickers().map(ticker => {
@@ -14,19 +16,19 @@ const start = () => {
 }
 
 async function seedDB() {
-  // if table exists drop
-
-  let total = 2000
+  let total = 1000000
   let count = 0;
   let chunk = start().length;
 
   while (count < total) {
     count += chunk;
-    await client.query(`INSERT INTO public.earning(ticker, name) VALUES('ABB', 'APPLE')`)
-      .then(() => client.end())
-      .catch(err => {
-        console.error(`Error saving data to PostgresDB! ${err} `)
+    await db.none(pgp.helpers.insert(start(), cs))
+      .then(() => {
+        console.log('Success')
       })
+      .catch(err => {
+        console.log(`Error: ${err}`)
+      });
     console.log(count);
   }
 
