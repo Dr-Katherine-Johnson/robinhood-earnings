@@ -1,7 +1,8 @@
 const express = require('express')
 const app = express()
 const port = 3007;
-const db = require('../data/postgres/index.js')
+const { db, cs } = require('../data/postgres/index.js')
+const pgp = require('../data/postgres/index.js')
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
@@ -13,7 +14,7 @@ app.use(express.static('client/dist'));
 app.use(express.static('client/public'));
 
 app.get('/earnings/:ticker', (req, res) => {
-  db.db.one(`SELECT * FROM tickers WHERE ticker = '${req.params.ticker}'`)
+  db.one(`SELECT * FROM tickers WHERE ticker = '${req.params.ticker}'`)
     .then((result) => res.status(200).send(result))
     .catch(err => res.status(400).json(`Error: ${err}`));
 })
@@ -29,19 +30,16 @@ app.post('/earnings', (req, res) => {
 
 
 app.put('/earnings/:ticker', (req, res) => {
-  db.Earnings.findOne({ ticker: req.params.ticker })
-    .then((earning) => {
-      earning.ticker = req.body.ticker;
-      earning.name = req.body.name;
-      earning.earnings = req.body.earnings;
+  const data = { ticker: req.body.ticker, name: req.body.name, earnings: req.body.earnings }
 
-      earning.save()
-        .then(() => res.status(200).json('Earning Updated'))
-        .catch(err => res.status(404).json(`Error: ${err}`));
-    })
-    .catch(err => res.status(404).json(`Error: ${err}`));
+  const condition = pgp.pgp.as.format(`WHERE ticker = '${req.params.ticker}'`, data)
+
+  const update = `${pgp.pgp.helpers.update(data, cs)} ${condition}`
+
+  db.none(update)
+    .then(() => res.status(200).json('Earning Updated'))
+    .catch(err => res.status(404).json(`Error: ${err}`))
 })
-
 
 app.delete('/earnings/:ticker', (req, res) => {
   db.Earnings.findOneAndDelete({ ticker: req.params.ticker })
