@@ -1,8 +1,6 @@
-const { db, pgp } = require('./postgres/index.js');
+const { db, pgp, cs } = require('./postgres/index.js');
 const earnings = require('./earnings.js');
 const tickers = require('./tickers.js');
-
-const cs = new pgp.helpers.ColumnSet(['ticker', 'name', 'earnings'], { table: 'tickers' });
 
 const start = () => {
   let tickerList = tickers.createTickers().map(ticker => {
