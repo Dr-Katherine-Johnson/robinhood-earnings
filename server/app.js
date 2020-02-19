@@ -1,9 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 3007;
-//const db = require('../data/index.js');
-//const influx = require('../data/influxdb/index.js');
-const postgres = require('../data/postgres/index.js')
+const db = require('../data/postgres/index.js')
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
@@ -15,7 +13,7 @@ app.use(express.static('client/dist'));
 app.use(express.static('client/public'));
 
 app.get('/earnings/:ticker', (req, res) => {
-  db.Earnings.findOne({ ticker: req.params.ticker })
+  db.db.one(`SELECT * FROM tickers WHERE ticker = '${req.params.ticker}'`)
     .then((result) => res.status(200).send(result))
     .catch(err => res.status(400).json(`Error: ${err}`));
 })
