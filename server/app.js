@@ -21,9 +21,9 @@ app.get('/earnings/:ticker', (req, res) => {
 
 
 app.post('/earnings', (req, res) => {
-  const newEarning = new db.Earnings(req.body)
+  const data = { ticker: req.body.ticker, name: req.body.name, earnings: req.body.earnings }
 
-  newEarning.save()
+  db.none(pgp.pgp.helpers.insert(data, cs))
     .then(() => res.status(201).json('Earning Added'))
     .catch(err => res.status(400).json(`Error: ${err}`));
 })
