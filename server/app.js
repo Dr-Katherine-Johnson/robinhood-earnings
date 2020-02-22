@@ -42,7 +42,7 @@ app.put('/earnings/:ticker', (req, res) => {
 })
 
 app.delete('/earnings/:ticker', (req, res) => {
-  db.Earnings.findOneAndDelete({ ticker: req.params.ticker })
+  db.result(`DELETE FROM tickers WHERE ticker = '${req.params.ticker}'`)
     .then(() => res.status(200).json('Earning Deleted'))
     .catch(err => res.status(404).json(`Error: ${err}`));
 })
