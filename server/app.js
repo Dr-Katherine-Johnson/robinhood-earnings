@@ -24,7 +24,7 @@ app.post('/earnings', (req, res) => {
   const data = { ticker: req.body.ticker, name: req.body.name, earnings: req.body.earnings }
 
   db.none(pgp.pgp.helpers.insert(data, cs))
-    .then(() => res.status(201).json('Earning Added'))
+    .then(() => res.status(201).json('Ticker Added'))
     .catch(err => res.status(400).json(`Error: ${err}`));
 })
 
@@ -37,13 +37,13 @@ app.put('/earnings/:ticker', (req, res) => {
   const update = `${pgp.pgp.helpers.update(data, cs)} ${condition}`
 
   db.none(update)
-    .then(() => res.status(200).json('Earning Updated'))
+    .then(() => res.status(200).json('Ticker Updated'))
     .catch(err => res.status(404).json(`Error: ${err}`))
 })
 
 app.delete('/earnings/:ticker', (req, res) => {
   db.result(`DELETE FROM tickers WHERE ticker = '${req.params.ticker}'`)
-    .then(() => res.status(200).json('Earning Deleted'))
+    .then(() => res.status(200).json('Ticker Deleted'))
     .catch(err => res.status(404).json(`Error: ${err}`));
 })
 
