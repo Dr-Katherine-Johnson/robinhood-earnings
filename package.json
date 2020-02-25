@@ -9,8 +9,6 @@
     "start": "nodemon server/app.js",
     "webpack-server": "webpack-dev-server",
     "seed": "node data/seed.js",
-    "influx-seed": "node data/influx-seed.js",
-    "postgres-seed": "node data/postgres-seed.js",
     "start-docker": "concurrently \"node data/seed.js\" \"nodemon server/app.js\""
   },
   "repository": {
