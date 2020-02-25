@@ -41,6 +41,7 @@
     "body-parser": "^1.19.0",
     "concurrently": "^5.0.2",
     "express": "^4.17.1",
+    "newrelic": "^6.4.1",
     "pg-promise": "^10.4.3",
     "query-string": "^6.10.0",
     "react": "^16.12.0",
