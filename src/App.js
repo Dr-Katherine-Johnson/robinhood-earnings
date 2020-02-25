@@ -26,7 +26,7 @@ class App extends Component {
           this.setState({
             ticker: result.ticker,
             name: result.name,
-            earnings: result.earnings,
+            earnings: result.earnings.map(earning => JSON.parse(earning)),
             updated: true
           });
         }

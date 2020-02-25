@@ -10,4 +10,6 @@ const db = pgp({
   port: 5432,
 })
 
-module.exports = { db, pgp };
+const cs = new pgp.helpers.ColumnSet(['ticker', 'name', 'earnings'], { table: 'tickers' });
+
+module.exports = { db, pgp, cs };
