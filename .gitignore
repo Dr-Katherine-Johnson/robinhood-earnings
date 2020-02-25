@@ -2,3 +2,5 @@ node_modules
 client/dist
 package-lock.json
 awscli-bundle
+newrelic.js
+newrelic_agent.log
