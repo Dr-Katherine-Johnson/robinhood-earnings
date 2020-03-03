@@ -1,11 +1,17 @@
 const newrelic = require('newrelic');
 const express = require('express')
 const app = express()
+const redis = require('redis');
+
 const port = 3007;
+
 const { db, cs } = require('../data/postgres/index.js')
 const pgp = require('../data/postgres/index.js')
+
 const cors = require('cors');
 const bodyParser = require('body-parser');
+
+const client = redis.createClient();
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -14,12 +20,27 @@ app.use(bodyParser.json());
 app.use(express.static('client/dist'));
 app.use(express.static('client/public'));
 
-app.get('/earnings/:ticker', (req, res) => {
-  db.one(`SELECT * FROM tickers WHERE ticker = '${req.params.ticker}'`)
-    .then((result) => res.status(200).send(result))
+
+const cache = (req, res, next) => {
+  const ticker = req.params.ticker;
+
+  client.get(ticker, (err, data) => {
+    if (err) throw err;
+    if (data !== null) {
+      res.send(data)
+    } else {
+      next();
+    }
+  })
+}
+
+app.get('/earnings/:ticker', cache, (req, res) => {
+  const ticker = req.params.ticker;
+  db.one(`SELECT * FROM tickers WHERE ticker = '${ticker}'`)
+    .then((result) => client.setex(ticker, 3600, JSON.stringify(result)))
+    .then(() => res.status(200))
     .catch(err => res.status(400).json(`Error: ${err}`));
 })
-
 
 app.post('/earnings', (req, res) => {
   const data = { ticker: req.body.ticker, name: req.body.name, earnings: req.body.earnings }
