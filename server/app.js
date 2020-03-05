@@ -22,9 +22,9 @@ app.use(express.static('client/public'));
 
 
 const cache = (req, res, next) => {
-  const ticker = req.params.ticker;
+  const id = req.params.id;
 
-  client.get(ticker, (err, data) => {
+  client.get(id, (err, data) => {
     if (err) throw err;
     if (data !== null) {
       res.send(data)
@@ -34,10 +34,10 @@ const cache = (req, res, next) => {
   })
 }
 
-app.get('/earnings/:ticker', cache, (req, res) => {
-  const ticker = req.params.ticker;
-  db.one(`SELECT * FROM tickers WHERE ticker = '${ticker}'`)
-    .then((result) => { client.setex(ticker, 3600, JSON.stringify(result)); res.status(200).send(result) })
+app.get('/earnings/:id', cache, (req, res) => {
+  const id = req.params.id;
+  db.one(`SELECT * FROM tickers WHERE id = '${id}'`)
+    .then((result) => { client.setex(id, 3600, JSON.stringify(result)); res.status(200).send(result) })
     .catch(err => res.status(400).json(`Error: ${err}`));
 })
 
