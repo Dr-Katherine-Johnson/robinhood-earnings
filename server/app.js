@@ -37,8 +37,7 @@ const cache = (req, res, next) => {
 app.get('/earnings/:ticker', cache, (req, res) => {
   const ticker = req.params.ticker;
   db.one(`SELECT * FROM tickers WHERE ticker = '${ticker}'`)
-    .then((result) => client.setex(ticker, 3600, JSON.stringify(result)))
-    .then(() => res.status(200))
+    .then((result) => { client.setex(ticker, 3600, JSON.stringify(result)); res.status(200).send(result) })
     .catch(err => res.status(400).json(`Error: ${err}`));
 })
 
