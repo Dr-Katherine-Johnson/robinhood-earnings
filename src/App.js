@@ -18,8 +18,8 @@ class App extends Component {
 
   componentDidMount() {
     const value = queryString.parse(window.location.search)
-    const ticker = value.ticker
-    fetch(`/earnings/${ticker}`)
+    const id = value.id
+    fetch(`/earnings/${id}`)
       .then(res => res.json())
       .then(
         (result) => {
