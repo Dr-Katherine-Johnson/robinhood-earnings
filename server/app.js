@@ -27,14 +27,14 @@ const cache = (req, res, next) => {
 
   client.get(id, (err, data) => {
     if (err) throw err;
-    const decode = Buffer.from(data, 'base64')
-    snappy.uncompress(decode, { asBuffer: false }, function (err, original) {
-      if (data !== null) {
+    if (data !== null) {
+      const decode = Buffer.from(data, 'base64')
+      snappy.uncompress(decode, function (err, original) {
         res.send(original)
-      } else {
-        next();
-      }
-    })
+      })
+    } else {
+      next();
+    }
   })
 }
 
@@ -49,7 +49,6 @@ app.get('/earnings/:id', cache, (req, res) => {
           err ? console.log(`Redis Error: ${err}`) : console.log('Zipped value cached!')
         })
       });
-      // UNABLE TO FETCH DATA FROM DB WITH NEW ID
       res.status(200).send(result)
     })
     .catch(err => res.status(400).json(`Error: ${err}`));
