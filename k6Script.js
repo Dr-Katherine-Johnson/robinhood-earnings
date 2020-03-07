@@ -13,7 +13,7 @@ export default function () {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
-  let id = getRandomInt(1, 1000000)
+  let id = getRandomInt(900000, 1000000)
   let res = http.get(`http://localhost:3007/earnings/${id}`);
   check(res, {
     "is status 200": (r) => r.status === 200
