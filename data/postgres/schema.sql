@@ -11,6 +11,8 @@ CREATE TABLE tickers (
   earnings TEXT []
 );
 
+CREATE INDEX tickers_id ON tickers(id);
+CREATE INDEX tickers_ticker ON tickers(ticker);
 
 /*  Execute this file from the command line by typing:
  *    psql -d postgres -U root < earnings/data/postgres/schema.sql
