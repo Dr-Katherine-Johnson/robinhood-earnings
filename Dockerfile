@@ -1,18 +1,15 @@
-FROM mhart/alpine-node:12.14
+FROM node:10.15.1
 
-#Create app directory
-RUN mkdir -p /app
-WORKDIR /app
+RUN mkdir -p /src/app
 
-#Install app dependencies
+WORKDIR /src/app
+
 COPY package*.json ./
+
 RUN npm install
 
-#Copy app source code
-COPY . /app
+COPY . .
 
-# What port will the container talk to the outside world with once created?
-EXPOSE 3000
+EXPOSE 3007
 
-# How do you start your app?
-CMD npm run start-docker
+CMD [ "npm", "start" ]
