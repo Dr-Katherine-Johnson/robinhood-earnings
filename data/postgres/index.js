@@ -3,9 +3,9 @@ const pgp = require('pg-promise')({
 });
 
 const db = pgp({
-  user: 'root',
-  password: '',
-  host: 'localhost',
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  host: process.env.PGHOST,
   database: 'earnings',
   port: 5432,
 })
